@@ -42,6 +42,7 @@ pipeline{
                     createDeployment(applicationName: 'mycloudapp',
                               deploymentGroupName: 'mycloudappgroup',
                               deploymentConfigName: 'CodeDeployDefault.OneAtATime',
+                              revisionType: 'S3',
                               s3Bucket: 'testbucket1sept2023',
                               s3BundleType:"zip",
                               s3Key:"artifact.zip",
