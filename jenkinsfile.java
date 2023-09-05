@@ -35,6 +35,7 @@ pipeline{
 
         stage("Deploy"){
             steps{
+                    script{
                     createDeployment(applicationName: 'mycloudapp',
                               deploymentGroupName: 'mycloudappgroup',
                               deploymentConfigName: 'CodeDeployDefault.OneAtATime',
@@ -43,6 +44,7 @@ pipeline{
                               s3Key:"artifact.zip",
                               fileExistsBehavior: 'OVERWRITE'
                               )
+                            }
                 
             }
         }
