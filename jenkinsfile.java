@@ -33,12 +33,17 @@ pipeline{
             }
         }
 
-        // stage("Deploy"){
-        //     steps{
-        //             step([$class: 'AWSCodeDeployPublisher',
-        //             s3bucket:"testbucket1sept2023", applicationName: "mycloudapp", deploymentGroupName: "mycloudappgroup"])
-                    
+        stage("Deploy"){
+            steps{
+                    awsCodeDeploy(applicationName: 'mycloudapp',
+                              deploymentGroup: 'mycloudappgroup',
+                              deploymentConfig: 'CodeDeployDefault.OneAtATime',
+                              bucketName: 'testbucket1sept2023',
+                              fileExistsBehavior: 'OVERWRITE',
+                              sourceFolder: '/',
+                              subdirectory: 'artifact.zip',
+                              region: 'us-east-1')
                 
-        //     }
+            }
         }
 }
