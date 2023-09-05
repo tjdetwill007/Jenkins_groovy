@@ -35,14 +35,14 @@ pipeline{
 
         stage("Deploy"){
             steps{
-                    awsCodeDeploy(applicationName: 'mycloudapp',
-                              deploymentGroup: 'mycloudappgroup',
-                              deploymentConfig: 'CodeDeployDefault.OneAtATime',
-                              bucketName: 'testbucket1sept2023',
-                              fileExistsBehavior: 'OVERWRITE',
-                              sourceFolder: '/',
-                              subdirectory: 'artifact.zip',
-                              region: 'us-east-1')
+                    createDeployment(applicationName: 'mycloudapp',
+                              deploymentGroupName: 'mycloudappgroup',
+                              deploymentConfigName: 'CodeDeployDefault.OneAtATime',
+                              s3Bucket: 'testbucket1sept2023',
+                              s3BundleType:"zip",
+                              s3Key:"artifact.zip",
+                              fileExistsBehavior: 'OVERWRITE'
+                              )
                 
             }
         }
