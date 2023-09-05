@@ -1,0 +1,16 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ec2-user/
+hooks:    
+  BeforeInstall:
+    - location: ./stopPort.sh
+      timeout: 300
+      args:
+        - 0.0.0.0:80
+  ApplicationStart:
+    - location: ./install.sh
+      timeout: 300
+
+      

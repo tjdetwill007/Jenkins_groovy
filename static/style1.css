@@ -1,0 +1,25 @@
+h1{
+  text-align: center;
+}
+h5{
+  text-align: center;
+}
+
+/* Register Page CSS */
+
+.registerForm{
+  position: absolute;
+  text-align: left;
+  width: 30%;
+  right: 35%;
+  background-color: #c6e3f2;
+  border: 50px solid #c6e3f2;
+}
+.register{
+text-align: center;
+}
+.error{
+  color: black;
+  font-style: italic;
+  font-weight: bold;
+}

@@ -1,0 +1,20 @@
+h1{
+    text-align: center;
+}
+h5{
+    text-align: center;
+}
+
+.loginPage{
+    position: absolute;
+        text-align: left;
+        width: 30%;
+        right: 35%;
+        background-color: #c6e3f2;
+        border: 50px solid #c6e3f2;
+}
+.btn-primary{
+    margin-left: 20%;
+}
+
+
