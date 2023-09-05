@@ -4,6 +4,7 @@ pipeline{
     environment{
 
         def name='tjdetwill007/mycloudapp:latest'
+        AWS_CREDENTIALS=credentials('AwsCred')
 
     }
     stages{
@@ -36,13 +37,19 @@ pipeline{
         stage("Deploy"){
             steps{
                     script{
+
+                        def awsEnv = [
+                        AWS_ACCESS_KEY_ID: AWS_CREDENTIALS.AWSAccessKeyId,
+                        AWS_SECRET_ACCESS_KEY: AWS_CREDENTIALS.AWSSecretKey
+                    ]
                     createDeployment(applicationName: 'mycloudapp',
                               deploymentGroupName: 'mycloudappgroup',
                               deploymentConfigName: 'CodeDeployDefault.OneAtATime',
                               s3Bucket: 'testbucket1sept2023',
                               s3BundleType:"zip",
                               s3Key:"artifact.zip",
-                              fileExistsBehavior: 'OVERWRITE'
+                              fileExistsBehavior: 'OVERWRITE',
+                              environmentVariables: awsEnv
                               )
                             }
                 
