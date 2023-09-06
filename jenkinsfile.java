@@ -14,7 +14,19 @@ pipeline{
                 git url: "https://github.com/tjdetwill007/Jenkins_groovy.git", branch: "master"
             }
         }
+        stage('User Input for Build stage') {
+            steps {
+                input(message: 'Do you want to skip the Build stage?', parameters: [boolean(defaultValue: false, description: 'Skip the stage?')], id: 'skipBuild')
+            }
+        }
         stage("build"){
+            when {
+                expression {
+                    // Check the value of the SKIP_STAGE_1 parameter obtained from user input
+                    def skipStage1 = input(id: 'skipBuild', message: 'Skip Stage Build?')
+                    return skipStage1 == 'true'
+                }
+            }
             steps{
                 echo "Entered to build stage"
                 sh "sudo docker build -t ${name} ."
@@ -48,7 +60,7 @@ pipeline{
                               s3Bucket: 'testbucket1sept2023',
                               s3BundleType:"zip",
                               s3Key:"artifact.zip",
-                              fileExistsBehavior: 'OVERWRITE'                           
+                              fileExistsBehavior: 'OVERWRITE'                          
                               )
                             }
                 
