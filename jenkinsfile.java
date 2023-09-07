@@ -20,8 +20,8 @@ pipeline{
             steps{
                 echo "Entered to build stage"
                 sh "sudo docker build -t ${name} ."
-                echo "Logging in to Docker HUB"
-                sh "sudo docker login --username ${docker_USR} --password ${docker_PSW}"
+                // echo "Logging in to Docker HUB"
+                // sh "sudo docker login --username ${docker_USR} --password ${docker_PSW}"
                 echo "Successfully built the image Now pushing to Docker Hub"
                 sh "sudo docker push ${name}"
             }
