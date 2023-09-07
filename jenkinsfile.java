@@ -44,17 +44,25 @@ pipeline{
                     script{
 
                     withAWS(credentials: 'AwsCred', region: 'us-east-1') {
+def deployment = [      applicationName: 'mycloudapp',
+                        deploymentGroupName: 'mycloudappgroup',
+                        revision: [
+                            revisionType: 'S3',
+                            s3Location: [
+                                bucketName: 'testbucket1sept2023',
+                                bundleType: 'zip',
+                                key: 'artifact.zip',
+                            ],
+                        ],
+                        description: 'YourDeploymentDescription',
+                        ignoreApplicationStopFailures: false, // Set to true or false
+                        fileExistsBehavior: 'OVERWRITE', // Set to 'OVERWRITE', 'DISALLOW', or 'RETAIN'
+                        
+                    ]
 
-    // some block
-                    def myBooleanParam = true
-                    createDeployment(applicationName: 'mycloudapp',
-                              deploymentGroupName: 'mycloudappgroup',
-                              deploymentConfigName: 'CodeDeployDefault.OneAtATime',
-                              s3Bucket: 'testbucket1sept2023',
-                              s3BundleType:"zip",
-                              s3Key:"artifact.zip",
-                              fileExistsBehavior: 'OVERWRITE'                          
-                              )
+                    // Create the deployment
+                    def deploymentId = awsCreateDeployment(deployment)
+                    echo "Created deployment with ID: $deploymentId"
                             }
                     }
                 
