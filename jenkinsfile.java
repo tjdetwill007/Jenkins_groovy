@@ -45,15 +45,16 @@ pipeline{
 
                     withAWS(credentials: 'AwsCred', region: 'us-east-1') {
 
-                            awsCreateDeployment(
+                            createDeployment(
                                 applicationName:'mycloudapp',
                                 deploymentGroupName: 'mycloudappgroup',
-                              deploymentConfigName: 'CodeDeployDefault.OneAtATime',
+                              deploymentConfigName: 'CodeDeployDefault.AllAtOnce',
                               s3Bucket: 'testbucket1sept2023',
                               s3BundleType:"zip",
                               s3Key:"artifact.zip",
                               fileExistsBehavior: 'OVERWRITE',
-                              ignoreApplicationStopFailures : false
+                              waitForCompletion: 'true',
+                              ignoreApplicationStopFailures : 'false'
                                                          
                             )
 
