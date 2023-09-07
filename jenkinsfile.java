@@ -44,8 +44,9 @@ pipeline{
                     script{
 
                     withAWS(credentials: 'AwsCred', region: 'us-east-1') {
+
     // some block
-   
+                    def myBooleanParam = true
                     createDeployment(applicationName: 'mycloudapp',
                               deploymentGroupName: 'mycloudappgroup',
                               deploymentConfigName: 'CodeDeployDefault.OneAtATime',
