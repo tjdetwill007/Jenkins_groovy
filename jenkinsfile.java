@@ -45,7 +45,7 @@ pipeline{
 
                     withAWS(credentials: 'AwsCred', region: 'us-east-1') {
 
-                            createDeployment(
+                            awscreateDeployment(
                                 applicationName:'mycloudapp',
                                 deploymentGroupName: 'mycloudappgroup',
                               deploymentConfigName: 'CodeDeployDefault.OneAtATime',
