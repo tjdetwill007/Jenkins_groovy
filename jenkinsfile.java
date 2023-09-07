@@ -4,7 +4,7 @@ pipeline{
     environment{
 
         def name='tjdetwill007/mycloudapp:latest'
-        def docker=credentials('a750fad4-d124-4d6c-9e2e-84c6f29f64c0')
+        // def docker=credentials('a750fad4-d124-4d6c-9e2e-84c6f29f64c0')
    
 
     }
@@ -14,19 +14,9 @@ pipeline{
                 git url: "https://github.com/tjdetwill007/Jenkins_groovy.git", branch: "master"
             }
         }
-        stage('User Input for Build stage') {
-            steps {
-                input(message: 'Do you want to skip the Build stage?', parameters: [boolean(defaultValue: false, description: 'Skip the stage?')], id: 'skipBuild')
-            }
-        }
+        
         stage("build"){
-            when {
-                expression {
-                    // Check the value of the SKIP_STAGE_1 parameter obtained from user input
-                    def skipStage1 = input(id: 'skipBuild', message: 'Skip Stage Build?')
-                    return skipStage1 == 'true'
-                }
-            }
+            
             steps{
                 echo "Entered to build stage"
                 sh "sudo docker build -t ${name} ."
@@ -53,7 +43,9 @@ pipeline{
             steps{
                     script{
 
-                        
+                    withAWS(credentials: 'AwsCred', region: 'us-east-1') {
+    // some block
+   
                     createDeployment(applicationName: 'mycloudapp',
                               deploymentGroupName: 'mycloudappgroup',
                               deploymentConfigName: 'CodeDeployDefault.OneAtATime',
@@ -63,6 +55,7 @@ pipeline{
                               fileExistsBehavior: 'OVERWRITE'                          
                               )
                             }
+                    }
                 
             }
         }
